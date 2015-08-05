@@ -35,8 +35,10 @@ def get_metrics_ec2(asset):
         Statistics=['Average'],
         Unit='Percent'
     )
-    if len(response['Datapoints']) > 0:
-        return response['Datapoints'][-1]['Average']
+    newlist=response['Datapoints']
+    newlist = sorted(newlist, key=lambda k: k['Timestamp'])
+    if len(newlist) > 0:
+        return newlist[-1]['Average']
 
 
 def asg():
